@@ -14,6 +14,15 @@
     <div class="container pb20">
         <div class="row">
             <article>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <ul class="post-meta list-inline">
                     <li class="list-inline-item">
                         <i class="fas fa-long-arrow-alt-left"></i><a href="{{ asset('/') }}">Back to home</a>
@@ -36,12 +45,14 @@
                         <li class="list-inline-item">
                             <i class="fa fa-eye"></i><a href="#">{{ $article->views }}</a>
                         </li>
-                        <li class="list-inline-item">
-                            <i class="fa fa-hashtag"></i>
-                            @foreach($article->tags as $tag)
-                                <a href="#">{{$tag->tag}}</a>
-                            @endforeach
-                        </li>
+                        @if($article->tags->isNotEmpty())
+                            <li class="list-inline-item">
+                                <i class="fa fa-hashtag"></i>
+                                @foreach($article->tags as $tag)
+                                    <a href="#">{{$tag->tag}}</a>
+                                @endforeach
+                            </li>
+                        @endif
                         <li class="list-inline-item">
                             @if($round_avg == 5)
                                 <i class="fas fa-star"></i>
@@ -89,7 +100,7 @@
                         </li>
                     </ul>
                     <p>{{ $article->short_description }}</p>
-                    <p class="lead">{{ $article->description }}</p>
+                    <p class="lead">{!! $article->description  !!}</p>
                     @if($article->reviews->isNotEmpty())
                     <hr class="mb40">
                         <div class="mb-5 mt-5">
