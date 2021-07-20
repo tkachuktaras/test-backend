@@ -24,4 +24,16 @@ class TagsController extends Controller
         $tag->save();
         return redirect()->route('article.create');
     }
+
+    public function destroy($id)
+    {
+        Tag::find($id)->delete();
+        return redirect()->route('article.create');
+    }
+
+    public function delete($id)
+    {
+        Tag::find($id)->delete();
+        return redirect()->route('articles.index');
+    }
 }

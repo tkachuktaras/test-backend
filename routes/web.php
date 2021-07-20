@@ -49,7 +49,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('admin-panel/tag/create/{id}', 'TagsController@add')->name('tag.create');
     Route::get('admin-panel/tag/add', 'TagsController@addNew')->name('tag.add');
-
+    Route::get('admin-panel/tag/{tag}/destroy', 'TagsController@destroy')->name('tag.destroy');
+    Route::get('admin-panel/tag/{tag}/delete', 'TagsController@delete')->name('tag.delete');
 });
 
 Route::get('/article/{article}', 'ArticleController@article')->name('article');

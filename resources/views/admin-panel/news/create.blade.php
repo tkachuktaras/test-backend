@@ -49,11 +49,9 @@
                 <div class="form-group">
                 <label>Added Tags</label>
                     <span class="form-control" id="added-tags">
-                        @if($tags->isEmpty())
-
-                        @else
+                        @if($tags->isNotEmpty())
                             @foreach($tags as $tag)
-                                #{{ $tag->tag }}
+                                #{{ $tag->tag }} <a style="color: black;" href="{{ route('tag.destroy', $tag->id) }}"><i class="fas fa-times"></i></a>
                             @endforeach
                         @endif
                     </span>

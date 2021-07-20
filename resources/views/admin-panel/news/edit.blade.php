@@ -41,7 +41,6 @@
                     <textarea type="text" class="form-control" name="short_description" placeholder="Enter Short Description">{{ $article->short_description }}</textarea>
                 </div>
 
-                <input type="hidden" class="form-control" id="article_id" value="{{ $article->id }}">
                 <div class="form-group">
                     <label>Add Tags</label>
                     <div class="input-group mb-3">
@@ -55,7 +54,7 @@
                     <label>Added Tags</label>
                     <span class="form-control" id="added-tags">
                         @foreach($article->tags as $tags)
-                            #{{$tags->tag}}
+                            #{{$tags->tag}} <a style="color: black;" href="{{ route('tag.delete', $tags->id) }}"><i class="fas fa-times"></i></a>
                         @endforeach
                     </span>
                 </div>
