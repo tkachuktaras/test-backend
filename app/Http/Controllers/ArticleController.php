@@ -11,7 +11,7 @@ class ArticleController extends Controller
 {
     public function article($id)
     {
-        $article = Article::where('id', $id)->with('reviews.reply')->first();
+        $article = Article::where('id', $id)->with('reviews.reply', 'tags')->first();
         $article->increment('views', 1);
         $article->save();
         $previous = Article::where('id', $id-1)->first();

@@ -36,21 +36,28 @@
                     <label>Full Description</label>
                     <textarea type="text" class="form-control" name="description" placeholder="Enter Full Description" cols="50" rows="6" wrap="hard"></textarea>
                 </div>
-                <!--
+
                 <div class="form-group">
                     <label>Add Tags</label>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Enter Tags" aria-label="Enter Tags" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control" id="tag" placeholder="Enter Tags" aria-label="Enter Tags" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" onclick="addTag(this)" type="button">Add</button>
+                            <a onclick="addTag()" href="#"><button class="btn btn-outline-secondary" id="add" type="button">Add</button></a>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Added Tags</label>
-                    <span class="form-control">hello, bye</span>
+                <label>Added Tags</label>
+                    <span class="form-control" id="added-tags">
+                        @if($tags->isEmpty())
+
+                        @else
+                            @foreach($tags as $tag)
+                                #{{ $tag->tag }}
+                            @endforeach
+                        @endif
+                    </span>
                 </div>
-                -->
                 <div class="form-group">
                     <label>Image</label>
                     <input type="file" class="form-control-file" name="img">
@@ -67,17 +74,19 @@
             </div>
         </form>
     </div>
-    <!--
+
     <script>
-        function addTag(tag){
-            $tag_str = $(tag).data('tag');
-            $article_ = $article;
+        function addTag(){
+            var tag = $('#tag').val()
+
+            let tag_str = ($('#added-tags').text())
+            tag_str = tag_str + ' #' + tag;
+            $('#added-tags').text(tag_str)
             $.ajax({
-                url:"{{ route('tag.create') }}",
-                type: "POST",
+                url:"{{ route('tag.add') }}",
+                type: "GET",
                 data: {
-                    tag_str: $tag_str,
-                    article: $article_,
+                    tag: tag,
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -85,9 +94,8 @@
                 success: function(){
                     console.log('Add');
                 }
-
             });
         }
     </script>
-    -->
+
 @endsection

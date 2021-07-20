@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\ArticleRequestWithoutImg;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,8 @@ class NewsController extends Controller
 
     public function create()
     {
-        return view('admin-panel.news.create');
+        $tags = Tag::where('article_id', Article::orderBy('id', 'DESC')->first()->id + 1)->get();
+        return view('admin-panel.news.create', ['tags' => $tags]);
     }
 
     public function store(ArticleRequest $req){

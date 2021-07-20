@@ -47,8 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::post('admin-panel/article/{article}/update', 'NewsController@update')->name('article.update');
     Route::post('admin-panel/article/{article}/destroy', 'NewsController@destroy')->name('article.destroy');
 
-    //Route::post('admin-panel/tag/create/{id}', 'TagsController@add')->name('tag.create');
-    //Route::post('admin-panel/tag/add', 'TagsController@addNew')->name('tag.add');
+    Route::get('admin-panel/tag/create/{id}', 'TagsController@add')->name('tag.create');
+    Route::get('admin-panel/tag/add', 'TagsController@addNew')->name('tag.add');
 
 });
 

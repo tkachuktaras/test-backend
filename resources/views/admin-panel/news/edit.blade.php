@@ -40,26 +40,26 @@
                     <label>Short Description</label>
                     <textarea type="text" class="form-control" name="short_description" placeholder="Enter Short Description">{{ $article->short_description }}</textarea>
                 </div>
-                <!--
-                <input type="hidden" class="form-control" name="article_id" value="{{ $article->id }}">
+
+                <input type="hidden" class="form-control" id="article_id" value="{{ $article->id }}">
                 <div class="form-group">
                     <label>Add Tags</label>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="tag" placeholder="Enter Tags" aria-label="Enter Tags" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control" id="tag" placeholder="Enter Tags" aria-label="Enter Tags" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" onclick="addTag(this, article_id)" type="button">Add</button>
+                            <a onclick="addTag()" href="#"><button class="btn btn-outline-secondary" id="add" type="button">Add</button></a>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Added Tags</label>
-                    <span class="form-control">
+                    <span class="form-control" id="added-tags">
                         @foreach($article->tags as $tags)
-                            {{$tags->tag}}
+                            #{{$tags->tag}}
                         @endforeach
                     </span>
                 </div>
-                -->
+
                 <div class="form-group">
                     <label>Recent Image</label><br>
                     <img class="form-control" style="width: 150px; height:100px" src="{{ asset('/storage/images')."/".$article->img }}">
@@ -83,16 +83,23 @@
             </div>
         </form>
     </div>
-    <!--
+
     <script>
-        function addTag(tag, article_id){
-            $tag_str = $(tag).data('tag');
-            $article_id = $(article_id).data('article_id');
+        function addTag(){
+            var article_id = $('#article_id').val()
+            $article = article_id
+            var tag = $('#tag').val()
+
+            let tag_str = ($('#added-tags').text())
+            tag_str = tag_str + ' #' + tag;
+            $('#added-tags').text(tag_str)
+
             $.ajax({
-                url:"{{ route('tag.create', $article_id   ) }}",
-                type: "POST",
+                url:"{{ route('tag.create', $article) }}",
+                type: "GET",
                 data: {
-                    tag_str: $tag_str,
+                    id: article_id,
+                    tag: tag
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -100,9 +107,9 @@
                 success: function(){
                     console.log('Add');
                 }
-
             });
         }
     </script>
-    -->
+
+
 @endsection

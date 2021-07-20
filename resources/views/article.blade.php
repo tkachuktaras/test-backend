@@ -37,6 +37,12 @@
                             <i class="fa fa-eye"></i><a href="#">{{ $article->views }}</a>
                         </li>
                         <li class="list-inline-item">
+                            <i class="fa fa-hashtag"></i>
+                            @foreach($article->tags as $tag)
+                                <a href="#">{{$tag->tag}}</a>
+                            @endforeach
+                        </li>
+                        <li class="list-inline-item">
                             @if($round_avg == 5)
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -81,7 +87,6 @@
                             @endif
                             {{ number_format((float)$avg, 1, '.', '') }}
                         </li>
-
                     </ul>
                     <p>{{ $article->short_description }}</p>
                     <p class="lead">{{ $article->description }}</p>

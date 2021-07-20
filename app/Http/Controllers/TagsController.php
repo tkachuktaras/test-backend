@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Tag;
 use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
-    public function add($id, $tag_str) {
+    public function add(Request $request) {
         $tag = new Tag();
-        $tag->article_id = $id;
-        $tag->tag = $tag_str;
+        $tag->article_id = $request->id;
+        $tag->tag = $request->tag;
 
         $tag->save();
-        return redirect()->route('article.edit', $id);
+        return redirect()->route('article.edit', $request->id);
     }
 
-    public function addNew($tag_str) {
+    public function addNew(Request $request) {
         $tag = new Tag();
-        //$tag->article_id = $id;
-        $tag->tag = $tag_str;
-
+        $tag->tag = $request->tag;
+        $tag->article_id = (Article::orderBy('id', 'DESC')->first()->id)+1;
         $tag->save();
         return redirect()->route('article.create');
     }
